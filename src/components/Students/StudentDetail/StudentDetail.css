@@ -1,0 +1,71 @@
+.user-detail-container {
+  padding: 0;
+  overflow: hidden;
+}
+
+.user-detail-header {
+  background-color: var(--color-primary);
+  color: #fff;
+  padding: 2rem;
+
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  margin-bottom: 2.4rem;
+  position: relative;
+}
+
+.user-image {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  background-color: #fff;
+}
+
+.user-class {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.remove-button {
+  font-size: 4.8rem;
+  color: #fff;
+  top: 0;
+  right: 2rem;
+  position: absolute;
+  cursor: pointer;
+}
+
+.user-basic-details {
+  margin: 2rem;
+  padding: 2rem;
+  border: 1px solid #dcdfe4;
+  border-radius: 10px;
+}
+
+.basic-detail-title {
+  color: var(--color-primary);
+  font-size: 1.8rem;
+  margin-bottom: 2.4rem;
+}
+
+.details {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  row-gap: 3rem;
+}
+
+.list-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #b6b8bb;
+}
+
+.list-bold,
+.list-phone {
+  font-size: 1.4rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}

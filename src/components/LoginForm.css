@@ -1,0 +1,51 @@
+.login-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.btnbtn {
+  padding: 8px 12px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.change-password-link {
+  margin-top: 10px;
+}
+
+a {
+  color: #007bff;
+  text-decoration: none;
+  cursor: pointer;
+}

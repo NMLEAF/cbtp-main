@@ -1,0 +1,29 @@
+.num-user {
+  display: flex;
+  gap: 2.4rem;
+}
+
+.num-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.tit-num {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.num-title {
+  font-size: 1.4rem;
+  color: #adb3be;
+}
+
+.num {
+  font-size: 2.4rem;
+  color: var(--color-primary);
+  font-weight: 600;
+}

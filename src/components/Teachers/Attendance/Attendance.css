@@ -1,0 +1,10 @@
+.class-header-lef {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btnbtn {
+  background-color: var(--color-primary);
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+}
