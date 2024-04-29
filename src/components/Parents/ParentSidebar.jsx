@@ -5,26 +5,24 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import DashboardOutlinedIcon from "@mui/icons-material/DashboardOutlined";
 import EscalatorWarningOutlinedIcon from "@mui/icons-material/EscalatorWarningOutlined";
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import AssignmentIndOutlinedIcon from "@mui/icons-material/AssignmentIndOutlined";
 import HowToRegOutlinedIcon from "@mui/icons-material/HowToRegOutlined";
 import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
+import AddHomeOutlinedIcon from "@mui/icons-material/AddHomeOutlined";
 import RuleOutlinedIcon from "@mui/icons-material/RuleOutlined";
 
-const TeacherSidebar = () => {
-  const [sidebar, setSidebar] = useState("dashboard");
+const ParentSidebar = () => {
+  const [sidebar, setSidebar] = useState("student");
   const location = useLocation();
 
   React.useEffect(() => {
-    if (location.pathname === "/teacher") {
-      setSidebar("dashboard");
-    } else if (location.pathname === "/teacher/students") {
-      setSidebar("students");
-    } else if (location.pathname === "/teacher/parents") {
-      setSidebar("parents");
-    } else if (location.pathname === "/teacher/grade") {
+    if (location.pathname === "/parent/student") {
+      setSidebar("student");
+    } else if (location.pathname === "/parent/student/grade") {
       setSidebar("grade");
-    } else if (location.pathname === "/teacher/attendance") {
+    } else if (location.pathname === "/parent/student/attendance") {
       setSidebar("attendance");
-    }
+    } 
   }, [location]);
 
   return (
@@ -37,35 +35,19 @@ const TeacherSidebar = () => {
       <hr />
 
       <div className="menu-list">
-        <Link
-          to="/teacher"
-          onClick={() => setSidebar("dashboard")}
-          className={sidebar === "dashboard" ? "item active" : "item"}
-        >
-          <DashboardOutlinedIcon style={{ fontSize: "24px" }} />
-          Dashboard
-        </Link>
+       
 
         <Link
-          to="/teacher/students"
-          onClick={() => setSidebar("sudents")}
-          className={sidebar === "students" ? "item active" : "item"}
+          to="/parent/student"
+          onClick={() => setSidebar("sudent")}
+          className={sidebar === "student" ? "item active" : "item"}
         >
           <SchoolOutlinedIcon style={{ fontSize: "24px" }} />
-          Students
+          Student
         </Link>
 
         <Link
-          to="/teacher/parents"
-          onClick={() => setSidebar("parents")}
-          className={sidebar === "parents" ? "item active" : "item"}
-        >
-          <EscalatorWarningOutlinedIcon style={{ fontSize: "24px" }} />
-          Parents
-        </Link>
-
-        <Link
-          to="/teacher/grade"
+          to="/parent/student/grade"
           onClick={() => setSidebar("grade")}
           className={sidebar === "grade" ? "item active" : "item"}
         >
@@ -74,7 +56,7 @@ const TeacherSidebar = () => {
         </Link>
 
         <Link
-          to="/teacher/attendance"
+          to="/parent/student/attendance"
           onClick={() => setSidebar("attendance")}
           className={sidebar === "attendance" ? "item active" : "item"}
         >
@@ -82,8 +64,10 @@ const TeacherSidebar = () => {
           Attendance
         </Link>
 
+        
+
         <div className="setting">
-          
+         
           <a href="" className="item logout">
             <LogoutOutlinedIcon style={{ fontSize: "24px" }} />
             Logout
@@ -94,4 +78,4 @@ const TeacherSidebar = () => {
   );
 };
 
-export default TeacherSidebar;
+export default ParentSidebar;

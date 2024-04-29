@@ -12,6 +12,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import StudeGradeList from "../../Grade/StudGradeList/StudGradeList";
 const Contents = () => {
   const [showDetail, setShowDetail] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
@@ -51,7 +52,7 @@ const Contents = () => {
       />
       <div className="admin-dashboard">
         <AddStudent open={open} handleClose={handleClose} />
-        <UserList
+        <StudeGradeList
           showStatus={showDetail}
           addShow={addShowDetail}
           selectId={handleSelectedId}

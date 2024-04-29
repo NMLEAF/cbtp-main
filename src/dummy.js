@@ -255,7 +255,7 @@ const students = [
     attendanceMark: 8
   },
   {
-    fname: "Amelia",
+    fname: "ዳዊት",
     lname: "Young",
     class: "10A",
     Id: "E-2360",

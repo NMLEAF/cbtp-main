@@ -20,6 +20,9 @@ import TeacherParents from "./pages/Teacher/Parents/TeacherParents";
 import TeacherStudents from "./pages/Teacher/Students/TeacherStudents";
 import TeacherAttendance from "./pages/Teacher/Attendance/TeacherAttendance";
 import Grades from "./pages/Teacher/Grades/Grades";
+import ParentGrade from "./pages/Parents/Grade/ParentGrade";
+import ParentAttendance from "./pages/Parents/Attendance/ParentAttendance";
+import ParentStudent from "./pages/Parents/Student/ParentStudent";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -59,6 +62,13 @@ function App() {
           <Route path="/teacher/parents" element={<TeacherParents />} />
           <Route path="/teacher/attendance" element={<TeacherAttendance />} />
           <Route path="/teacher/grade" element={<Grades />} />
+
+            {/* Parent */}
+
+          <Route path="/parent/student" element={<ParentStudent />} />
+          <Route path="/parent/student/grade" element={<ParentGrade />} />
+          <Route path="/parent/student/attendance" element={<ParentAttendance />} />
+
         </Routes>
       </div>
     </>

@@ -63,20 +63,10 @@ const RegistrarSidebar = () => {
           Parents
         </Link>
 
-        <Link
-          to="/registrar/registration"
-          onClick={() => setSidebar("registration")}
-          className={sidebar === "registration" ? "item active" : "item"}
-        >
-          <PersonAddAltOutlinedIcon style={{ fontSize: "24px" }} />
-          Registration
-        </Link>
+        
 
         <div className="setting">
-          <a href="" className="item">
-            <SettingsOutlinedIcon style={{ fontSize: "24px" }} />
-            Settings
-          </a>
+         
           <a href="" className="item logout">
             <LogoutOutlinedIcon style={{ fontSize: "24px" }} />
             Logout

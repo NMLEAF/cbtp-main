@@ -55,6 +55,7 @@ const StudeGradeList = ({ page, addShow, showStatus, selectId }) => {
 
             <label htmlFor="">Choose class: </label>
             <select >
+            <option value="all">All</option>
               <option value="class I">ClassI</option>
               <option value="class II">Class II</option>
               <option value="clas sIII">CLass III</option>

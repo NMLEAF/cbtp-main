@@ -52,9 +52,7 @@ const ClassDetail = () => {
             </div>
           </div>
 
-          <div className="class-header-right">
-            <button className="btn add-class-btn">+ Add Class</button>
-          </div>
+          
         </div>
 
         <div className="class-heading class-header-left">

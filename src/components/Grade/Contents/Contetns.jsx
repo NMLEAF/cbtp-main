@@ -35,7 +35,7 @@ const Contents = () => {
           showStatus={showDetail}
           addShow={addShowDetail}
           selectId={handleSelectedId}
-          page={"Grade"}
+          page={"Students"}
         />
         {showDetail && (
           <GradeDetail
