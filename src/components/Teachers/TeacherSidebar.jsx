@@ -14,7 +14,7 @@ const TeacherSidebar = () => {
   const location = useLocation();
 
   React.useEffect(() => {
-    if (location.pathname === "/admin") {
+    if (location.pathname === "/teacher") {
       setSidebar("dashboard");
     } else if (location.pathname === "/teacher/students") {
       setSidebar("students");
@@ -38,7 +38,7 @@ const TeacherSidebar = () => {
 
       <div className="menu-list">
         <Link
-          to="/registrar"
+          to="/teacher"
           onClick={() => setSidebar("dashboard")}
           className={sidebar === "dashboard" ? "item active" : "item"}
         >

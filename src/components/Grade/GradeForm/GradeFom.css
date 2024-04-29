@@ -1,0 +1,43 @@
+
+
+.grade-form-container form {
+    display: flex;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .grade-form-container label {
+    margin-bottom: 10px;
+  }
+  
+  .grade-form-container input[type="number"],
+  .grade-form-container button {
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .grade-form-container input[type="number"] {
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+  }
+  
+  .grade-form-container button {
+    background-color: #43526a;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  
+  .grade-form-container button:hover {
+    background-color: #314057;
+  }
+  
+  .grade-form-container button:active {
+    background-color: #1f2b3a;
+  }
+  
+  .grade-form-container button:focus {
+    outline: none;
+  }

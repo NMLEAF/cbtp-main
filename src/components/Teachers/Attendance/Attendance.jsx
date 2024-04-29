@@ -58,8 +58,10 @@ const Attendance = () => {
                 <label htmlFor="" className="class-label">
                   Attendance option -
                 </label>
-                <select value={attendanceOption}
-              onChange={(e) => setAttendanceOption(e.target.value)}>
+                <select
+                  value={attendanceOption}
+                  onChange={(e) => setAttendanceOption(e.target.value)}
+                >
                   <option value="set">Set</option>
                   <option value="view">View</option>
                 </select>
@@ -70,11 +72,13 @@ const Attendance = () => {
 
         <div className="class-heading class-header-left class-header-lef">
           <h2 className="class-list-title">Students</h2>
-          <div className="save-attendance">
-            <button onClick={handleSaveAttendance} className="btnbtn">
-              Save Attendance
-            </button>
-          </div>
+          {attendanceOption === "set" && (
+            <div className="save-attendance">
+              <button onClick={handleSaveAttendance} className="btnbtn">
+                Save Attendance
+              </button>
+            </div>
+          )}
         </div>
 
         <hr className="user-list-hr hr-class" />
@@ -101,13 +105,21 @@ const Attendance = () => {
             <p className="gender">{student.gender}</p>
             <p className="age">{student.age}</p>
             <p className="age">
-              <input
-                type="checkbox"
-                checked={attendanceData[student.Id] === "present"}
-                onChange={(e) =>
-                  handleAttendanceChange(student.Id, e.target.checked)
-                }
-              />
+              {attendanceOption === "view" ? (
+                student.attendance === "present" ? (
+                  <CheckIcon style={{ fontSize: "24px", color: "#0cae0c" }} />
+                ) : (
+                  <ClearIcon style={{ fontSize: "24px", color: "red" }} />
+                )
+              ) : (
+                <input
+                  type="checkbox"
+                  checked={attendanceData[student.Id] === "present"}
+                  onChange={(e) =>
+                    handleAttendanceChange(student.Id, e.target.checked)
+                  }
+                />
+              )}
             </p>
           </div>
           <div className="hr-div">

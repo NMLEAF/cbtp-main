@@ -19,6 +19,7 @@ import TeacherDashboard from "./pages/Teacher/TeacherDashboard/TeacherDashboard"
 import TeacherParents from "./pages/Teacher/Parents/TeacherParents";
 import TeacherStudents from "./pages/Teacher/Students/TeacherStudents";
 import TeacherAttendance from "./pages/Teacher/Attendance/TeacherAttendance";
+import Grades from "./pages/Teacher/Grades/Grades";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -57,6 +58,7 @@ function App() {
           <Route path="/teacher/students" element={<TeacherStudents />} />
           <Route path="/teacher/parents" element={<TeacherParents />} />
           <Route path="/teacher/attendance" element={<TeacherAttendance />} />
+          <Route path="/teacher/grade" element={<Grades />} />
         </Routes>
       </div>
     </>
