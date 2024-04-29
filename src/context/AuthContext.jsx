@@ -13,6 +13,12 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }) => {
   const [listOfRegistrars,setListOfRegistrars] = useState([]);
   const [listOfTeachers,setListOfTeachers] = useState([]);
+  const [listParents,setListParents] = useState([]);
+  const [Subject,setSubject] = useState([]);
+  const [classes,setclasses] = useState([]);
+
+
+  ///
   const [isLogged, setIsLogged] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setisTeacher] = useState(false);
@@ -52,7 +58,8 @@ export const AuthProvider = ({ children }) => {
 
   const fetchTeacher = async () => {
     const response = await employeeService.getAllTeacher();
-    setListOfTeachers(response.registrarStaffList);
+    // console.log(response.teachers);
+    setListOfTeachers(response.teachers);
 
   }
   const value = {

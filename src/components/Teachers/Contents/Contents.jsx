@@ -13,8 +13,11 @@ import {
   TextField,
 } from "@mui/material";
 import StudeGradeList from "../../Grade/StudGradeList/StudGradeList";
+import { useAuth } from "../../../context/AuthContext";
 
 const Contents = () => {
+  const {listOfTeachers,fetchTeacher} = useAuth();
+  const [selectedTeacher, setselectedTeacher] = useState({});
   const [showDetail, setShowDetail] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
 
@@ -39,6 +42,10 @@ const Contents = () => {
   const handleSelectedId = (id) => {
     setSelectedId(id);
   };
+  const handleSelectedData = (data) => {
+    setselectedTeacher(data);
+     
+   };
 
   return (
     <div className="contents">
@@ -59,12 +66,14 @@ const Contents = () => {
           showStatus={showDetail}
           addShow={addShowDetail}
           selectId={handleSelectedId}
+          handleSelect={handleSelectedData}
         />
         {showDetail && (
           <TeacherDetail
             removeShow={removeShowDetail}
             page={"Teacher"}
             selectedId={selectedId}
+            selectedTeacher={selectedTeacher}
           />
         )}
       </div>

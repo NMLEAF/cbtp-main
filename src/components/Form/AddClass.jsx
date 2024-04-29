@@ -9,6 +9,8 @@ import {
   TextField,
 } from "@mui/material";
 import { z } from "zod";
+import courseService from "../../services/courseService";
+import { useToast } from "../../context/ToastContext";
 
 const addClassSchema = z.object({
   className: z.string().min(1),
@@ -16,6 +18,7 @@ const addClassSchema = z.object({
 });
 
 const AddClass = ({ open, handleClose }) => {
+  const {setToastData} = useToast();
   const [formData, setFormData] = useState({
     className: "",
     Grade: 1, // Default grade
@@ -25,13 +28,13 @@ const AddClass = ({ open, handleClose }) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
-  const handleRegister = () => {
-    try {
-      addClassSchema.parse(formData);
-      console.log("Class registration data:", formData);
-    } catch (error) {
-      console.error("Validation error:", error.errors);
-      // Handle validation errors
+  const handleRegister = async () => {
+    const response = await courseService.addClass(formData);
+    console.log(response);
+    setToastData(response);
+    if(response.success){
+      console.log(")------------")
+      handleClose();
     }
   };
 

@@ -9,12 +9,15 @@ import {
   TextField,
 } from "@mui/material";
 import { z } from "zod";
+import courseService from "../../services/courseService";
+import { useToast } from "../../context/ToastContext";
 
 const addSubjectSchema = z.object({
   subjectName: z.string().min(1),
 });
 
 const AddSubject = ({ open, handleClose }) => {
+  const {setToastData} = useToast();
   const [formData, setFormData] = useState({
     subjectName: "",
   });
@@ -23,13 +26,14 @@ const AddSubject = ({ open, handleClose }) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
-  const handleRegister = () => {
-    try {
-      addSubjectSchema.parse(formData);
-      console.log("Subject registration data:", formData);
-    } catch (error) {
-      console.error("Validation error:", error.errors);
-      // Handle validation errors
+  const handleRegister = async () => {
+   
+    const response = await courseService.addSubject(formData);
+    console.log(response);
+    setToastData(response);
+    if(response.success){
+      console.log(")------------")
+      handleClose();
     }
   };
 

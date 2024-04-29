@@ -52,5 +52,14 @@ const employeeService = {
       return error.response.data;
     }
   },
+  addParent: async (formData) => {
+    console.log(formData);
+    try {
+      const response = await axios.post("user/registerParent", formData);
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
 };
 export default employeeService;

@@ -52,7 +52,7 @@ const Contents = () => {
       />
       <div className="admin-dashboard">
         <AddParent open={open} handleClose={handleClose} />
-        <UserList
+        {/* <UserList
           showStatus={showDetail}
           addShow={addShowDetail}
           selectId={handleSelectedId}
@@ -64,7 +64,7 @@ const Contents = () => {
             page={"Parent"}
             selectedId={selectedId}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

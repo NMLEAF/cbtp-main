@@ -9,6 +9,8 @@ import {
   TextField,
 } from "@mui/material";
 import { z } from "zod";
+import employeeService from "../../services/employeeService";
+import { useToast } from "../../context/ToastContext";
 
 const registerParentSchema = z.object({
   email: z.string().email(),
@@ -24,13 +26,16 @@ const registerParentSchema = z.object({
 });
 
 const AddParent = ({ open, handleClose }) => {
+  const {setToastData} = useToast();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
     firstName: "",
     lastName: "",
+    middleName: "",
     gender: "",
     address: "",
+    role: "PARENT",
     phone: "",
     dateOfBirth: "",
     roleId: 1, // Assuming a default role ID for parent
@@ -41,14 +46,14 @@ const AddParent = ({ open, handleClose }) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
-  const handleRegister = () => {
-    try {
-      registerParentSchema.parse(formData);
-      console.log("Parent registration data:", formData);
-    } catch (error) {
-      console.error("Validation error:", error.errors);
-      // Handle validation errors
+  const handleRegister = async () => {
+    const response = await employeeService.addParent(formData);
+    setToastData(response);
+    if(response.success){
+      // fetchRegistrar();
+      handleClose();
     }
+   
   };
 
   return (
@@ -80,6 +85,13 @@ const AddParent = ({ open, handleClose }) => {
           label="First Name"
           value={formData.firstName}
           onChange={handleChange("firstName")}
+          fullWidth
+        />
+            <TextField
+          margin="dense"
+          label="Middle Name"
+          value={formData.middleName}
+          onChange={handleChange("middleName")}
           fullWidth
         />
         <TextField
