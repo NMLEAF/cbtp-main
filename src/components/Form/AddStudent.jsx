@@ -9,6 +9,9 @@ import {
   TextField,
 } from "@mui/material";
 import { z } from "zod";
+import courseService from "../../services/courseService";
+import { useToast } from "../../context/ToastContext";
+import studentService from "../../services/studentService";
 
 const registerStudentSchema = z.object({
   parentId: z.number().min(1),
@@ -24,6 +27,7 @@ const registerStudentSchema = z.object({
 });
 
 const AddStudent = ({ open, handleClose }) => {
+  const {setToastData} = useToast();
   const [formData, setFormData] = useState({
     parentId: 1, // Default parent ID
     classroomID: 1, // Default classroom ID
@@ -41,13 +45,13 @@ const AddStudent = ({ open, handleClose }) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
-  const handleRegister = () => {
-    try {
-      registerStudentSchema.parse(formData);
-      console.log("Student registration data:", formData);
-    } catch (error) {
-      console.error("Validation error:", error.errors);
-      // Handle validation errors
+  const handleRegister = async () => {
+    const response = await studentService.addStudent(formData);
+    console.log(response);
+    setToastData(response);
+    if(response.success){
+      console.log(")------------")
+      handleClose();
     }
   };
 

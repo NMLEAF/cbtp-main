@@ -3,6 +3,7 @@ import React, { useState, useEffect, useContext } from "react";
 // Import the Util function we created to handle the reading from the local storage
 import getAuth from "../Utility/auth.header";
 import employeeService from "../services/employeeService";
+import courseService from "../services/courseService";
 // Create a context object
 const AuthContext = React.createContext();
 // Create a custom hook to use the context
@@ -14,8 +15,9 @@ export const AuthProvider = ({ children }) => {
   const [listOfRegistrars,setListOfRegistrars] = useState([]);
   const [listOfTeachers,setListOfTeachers] = useState([]);
   const [listParents,setListParents] = useState([]);
-  const [Subject,setSubject] = useState([]);
-  const [classes,setclasses] = useState([]);
+  const [listStudent,setListStudent] = useState([]);
+  const [subjectList,setSubjecListt] = useState([]);
+  const [classesList,setclassesList] = useState([]);
 
 
   ///
@@ -30,6 +32,10 @@ export const AuthProvider = ({ children }) => {
     fetchData();
     fetchRegistrar();
     fetchTeacher();
+    fetchParent();
+    fetchStudent();
+    fetchSubject();
+    fetchClass();
   }, []);
 
   const fetchData = () => {
@@ -62,11 +68,43 @@ export const AuthProvider = ({ children }) => {
     setListOfTeachers(response.teachers);
 
   }
+
+  const fetchStudent = async () => {
+    // console.log("o-------------bject")
+    const response = await employeeService.getAllStudents();
+    // console.log(response);
+    setListStudent(response);
+
+  }
+
+  const fetchParent = async () => {
+    const response = await employeeService.getAllTParents();
+    setListParents(response);
+
+  }
+  const fetchSubject = async () => {
+    const response = await courseService.getAllSubject();
+    console.log(response)
+    setSubjecListt(response);
+
+  }
+  const fetchClass = async () => {
+    // const response = await courseService.getAllClass();
+    // console.log(response)
+    // setclassesList(response);
+
+  }
+
+
   const value = {
-    fetchRegistrar,listOfRegistrars,listOfTeachers,setListOfTeachers,fetchTeacher,
-    setListOfRegistrars,
+    fetchRegistrar,fetchTeacher,fetchParent,fetchStudent,fetchClass,fetchSubject,
+    listOfRegistrars,
+    listOfTeachers,
+    listStudent,
+    listParents,
     isTeacher,
-    setisTeacher,
+    subjectList,
+    classesList,
     isLogged,
     isAdmin,
     setIsAdmin,

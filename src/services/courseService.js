@@ -17,6 +17,22 @@ const courseService = {
       return error.response.data;
     }
   },
+  getAllSubject: async () => {
+    try {
+      const response = await axios.get("user/getsubject");
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
+  getAllClass: async () => {
+    try {
+      const response = await axios.get("user/getclass");
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
 
 }
 export default courseService;

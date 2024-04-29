@@ -43,6 +43,22 @@ const employeeService = {
       return error.response.data;
     }
   },
+  getAllStudents: async (formData) => {
+    try {
+      const response = await axios.get("user/findAllstudents", formData);
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
+  getAllTParents: async (formData) => {
+    try {
+      const response = await axios.get("user/findAllParents", formData);
+      return response.data;
+    } catch (error) {
+      return error.response.data;
+    }
+  },
   addTeacher: async (formData) => {
     console.log(formData);
     try {
