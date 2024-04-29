@@ -66,6 +66,16 @@ const Attendance = () => {
                   <option value="view">View</option>
                 </select>
               </div>
+
+              <div className="options">
+                <label htmlFor="" className="class-label">
+                  Choose date -
+                </label>
+                <select>
+                  <option value="semester I">Semester I</option>
+                  <option value="semester II">Semester II</option>
+                </select>
+              </div>
             </div>
           </div>
         </div>

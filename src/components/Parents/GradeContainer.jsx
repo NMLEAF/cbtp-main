@@ -1,9 +1,9 @@
 import React from "react";
-import students from "../../../dummy";
-import GradeForm from "../GradeForm/GradeForm";
+import students from "../../dummy";
+import StudGrade from "./StudGrade";
 
-const GradeDetail = ({ removeShow, page, selectedId }) => {
-  const student = students.slice().find((student) => student.Id === selectedId);
+const GradeContainer = () => {
+  const student = students.slice().find((student) => student.Id === "E-2357");
 
   return (
     <div className="container user-detail-container">
@@ -17,24 +17,21 @@ const GradeDetail = ({ removeShow, page, selectedId }) => {
         </div>
         <div className="options">
                 <label htmlFor="" className="class-label">
-                  Choose semester -
+                  Choose date -
                 </label>
                 <select>
                   <option value="semester I">Semester I</option>
                   <option value="semester II">Semester II</option>
-                
+               
                 </select>
               </div>
-
-        <div onClick={removeShow} className="remove-button">
-          &times;
-        </div>
+        
       </div>
       <div className="user-basic-details">
-        <GradeForm selectedId={selectedId} />
+        <StudGrade/>
       </div>
     </div>
   );
 };
 
-export default GradeDetail;
+export default GradeContainer;

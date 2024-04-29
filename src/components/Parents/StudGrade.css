@@ -1,0 +1,17 @@
+.grade-container {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 5rem;
+}
+
+.margin-top {
+    margin-top: 5rem;
+}
+
+.total-grade {
+    font-size: 1.6rem;
+}
+
+.total-grade b{
+    font-size: 3rem;
+}
