@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -8,8 +8,13 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import employeeService from "../../services/employeeService";
+import { useToast } from "../../context/ToastContext";
+import { useAuth } from "../../context/AuthContext";
 
 const AddRegistrar = ({ open, handleClose }) => {
+  const {listOfRegistrars,fetchRegistrar} = useAuth();
+  const {setToastData} = useToast();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -56,15 +61,9 @@ const AddRegistrar = ({ open, handleClose }) => {
     setDateOfBirth(e.target.value);
   };
 
-  const handleLogin = () => {
-    // TODO: Handle login logic here
-    console.log("Email:", email);
-    console.log("Password:", password);
-  };
-
-  const handleRegister = () => {
+  const handleRegister = async () => {
     // TODO: Handle registration logic here
-    console.log("Registration data:", {
+    const formData =  {
       email,
       password,
       firstName,
@@ -74,11 +73,25 @@ const AddRegistrar = ({ open, handleClose }) => {
       phone,
       gender,
       dateOfBirth,
-      role: "teacher", // Assuming role is fixed for teacher registration
+      role: "REGISTRAR", // Assuming role is fixed for teacher registration
       subjectId: 1, // Assuming a default subject ID
-      classId: 1, // Assuming a default class ID
-    });
+      classId: 1, 
+    };
+    const response = await employeeService.addRegistrar(formData);
+    setToastData(response);
+    if(response.success){
+      fetchRegistrar();
+      handleClose();
+    }
+    
+
+
+
   };
+
+
+
+
 
   return (
     <Dialog open={open} onClose={handleClose}>

@@ -9,8 +9,13 @@ import {
   TextField,
 } from "@mui/material";
 import { z } from "zod";
+import employeeService from "../../services/employeeService";
+import { useToast } from "../../context/ToastContext";
+import { useAuth } from "../../context/AuthContext";
 
 const AddTeacher = ({ open, handleClose }) => {
+  const {setToastData} = useToast();
+  const {listOfTeachers,setListOfTeachers,fetchTeacher} = useAuth();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -21,7 +26,7 @@ const AddTeacher = ({ open, handleClose }) => {
     phone: "",
     gender: "",
     dateOfBirth: "",
-    role: "teacher",
+    role: "TEACHER",
     subjectId: 1,
     classId: 1,
   });
@@ -30,14 +35,14 @@ const AddTeacher = ({ open, handleClose }) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
-  const handleRegister = () => {
-    try {
-      AddTeacher.parse(formData);
-      console.log("Registration data:", formData);
-    } catch (error) {
-      console.error("Validation error:", error.errors);
-      // Handle validation errors
+  const handleTeacherAdd = async () => {
+    const response = await employeeService.addTeacher(formData);
+    setToastData(response);
+    if(response.success){
+      fetchTeacher();
+      handleClose();
     }
+
   };
 
   return (
@@ -60,6 +65,7 @@ const AddTeacher = ({ open, handleClose }) => {
         <TextField
           margin="dense"
           label="Subject ID"
+          type="number"
           value={formData.subjectId}
           onChange={handleChange("subjectId")}
           fullWidth
@@ -67,6 +73,7 @@ const AddTeacher = ({ open, handleClose }) => {
         <TextField
           margin="dense"
           label="Classroom ID"
+          type="number"
           value={formData.classId}
           onChange={handleChange("classId")}
           fullWidth
@@ -135,7 +142,7 @@ const AddTeacher = ({ open, handleClose }) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleRegister} variant="contained" color="primary">
+        <Button onClick={handleTeacherAdd} variant="contained" color="primary">
           Register
         </Button>
       </DialogActions>

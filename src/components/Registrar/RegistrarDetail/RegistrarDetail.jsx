@@ -1,18 +1,17 @@
 import React from "react";
 import students from "../../../dummy";
 
-const RegistrarDetail = ({ page, removeShow, selectedId }) => {
-  const registrar = students
-    .slice()
-    .find((registrar) => registrar.Id === selectedId);
+const RegistrarDetail = ({ page, removeShow, selectedId,selectedRegistrar }) => {
 
+
+  console.log(selectedRegistrar);
   return (
     <div className="container user-detail-container">
       <div className="user-detail-header">
-        <div className="user-image"></div>
+        <div className="user-image"><img src={selectedRegistrar.profile[0].imageUrl} width={"100%"} height={"100%"} style={{objectFit: "contain", borderRadius: "50%",}} alt="" /></div>
         <div className="user-profile">
           <h1 className="user-name">
-            {registrar.fname} {registrar.lname}
+            {selectedRegistrar.profile[0].firstName} {selectedRegistrar.profile[0].middleName}
           </h1>
         </div>
         <div onClick={removeShow} className="remove-button">
@@ -24,11 +23,11 @@ const RegistrarDetail = ({ page, removeShow, selectedId }) => {
         <div className="details">
           <div className="details-list">
             <p className="list-title">{page} ID</p>
-            <p className="list-bold">{registrar.Id}</p>
+            <p className="list-bold">{selectedRegistrar.id}</p>
           </div>
           <div className="details-list">
             <p className="list-title">Gender</p>
-            <p className="list-bold">{registrar.gender}</p>
+            <p className="list-bold">{selectedRegistrar.profile[0].gender}</p>
           </div>
           <div className="details-list">
             <p className="list-title">Date of Birth</p>
@@ -36,11 +35,11 @@ const RegistrarDetail = ({ page, removeShow, selectedId }) => {
           </div>
           <div className="details-list">
             <p className="list-title">Age</p>
-            <p className="list-bold">{registrar.age}</p>
+            <p className="list-bold">{selectedRegistrar.profile[0].age}</p>
           </div>
           <div className="details-list">
             <p className="list-title">Address</p>
-            <p className="list-bold">{registrar.address}</p>
+            <p className="list-bold">{selectedRegistrar.profile[0].address}</p>
           </div>
         </div>
       </div>

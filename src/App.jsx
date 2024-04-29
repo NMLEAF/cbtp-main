@@ -23,6 +23,7 @@ import Grades from "./pages/Teacher/Grades/Grades";
 import ParentGrade from "./pages/Parents/Grade/ParentGrade";
 import ParentAttendance from "./pages/Parents/Attendance/ParentAttendance";
 import ParentStudent from "./pages/Parents/Student/ParentStudent";
+import HomePage from "./pages/Home/HomePage";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -32,6 +33,9 @@ function App() {
       <div>
         <ToastNotification />
         <Routes>
+
+        <Route path="/" element={<HomePage />} />
+
           <Route path="/login" element={<LoginPage />} />
 
           {/* Admin */}
