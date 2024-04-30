@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Home.css";
 import homeImg from "../../../public/college students-cuate.png";
 
@@ -18,7 +19,8 @@ const Home = () => {
           students and parents while enhancing communication in educational
           institutions.
         </p>
-        <button className="login-btn">Login</button>
+
+        <button className="btnbtn"><Link to="/login" className="txt">Login</Link></button>
       </div>
     </div>
   );

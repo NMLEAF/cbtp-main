@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import students from "../../../dummy";
 import { useAuth } from "../../../context/AuthContext";
-const StudeGradeList = ({ page, addShow, showStatus, selectId,handleSelect }) => {
+const StudeGradeList2 = ({ page, addShow, showStatus, selectId,handleSelect, }) => {
   const [selectIndex, setSelectedIndex] = useState(null);
-  const {listOfTeachers,setListOfTeachers} = useAuth();
+  const {listStudent,} = useAuth();
   const [gender, setGender] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("Name");
-// console.log(listOfTeachers);
+// console.log(listStudent);
   const handleClick = (id,data) => {
     addShow();
     setSelectedIndex(id);
@@ -16,6 +16,7 @@ const StudeGradeList = ({ page, addShow, showStatus, selectId,handleSelect }) =>
   };
 
   let data;
+  console.log(listStudent)
 
   if (gender === "All") {
     data = students;
@@ -40,6 +41,7 @@ const StudeGradeList = ({ page, addShow, showStatus, selectId,handleSelect }) =>
     data = data.slice().sort((a, b) => a.Id - b.Id);
   }
 
+    console.log(listStudent)
   return (
     <div className="container container-height">
       <div className="cover">
@@ -89,7 +91,7 @@ const StudeGradeList = ({ page, addShow, showStatus, selectId,handleSelect }) =>
         <br />
       </div>
 
-      {listOfTeachers && listOfTeachers.map((student, index) => (
+      {listStudent && listStudent.map((student, index) => (
         <React.Fragment key={student.Id}>
           <div
             onClick={() => handleClick(index,student)}
@@ -99,9 +101,9 @@ const StudeGradeList = ({ page, addShow, showStatus, selectId,handleSelect }) =>
                 : "user-header user-list"
             }
           >
-            <div className="image"><img src={student.profile[0].imageUrl} alt="" srcset=""  width={"100%"} height={"100%"} style={{objectFit: "contain", borderRadius: "50%",}}/></div>
-            <p className="name">{`${student.profile[0].firstName} ${student.profile[0].lastName}`}</p>
-            <p className="id">{student.Id}</p>
+           <div className="image"><img src={student.studentprofile[0].imageUrl} alt="" srcset=""  width={"100%"} height={"100%"} style={{objectFit: "contain", borderRadius: "50%",}}/></div>
+             <p className="name">{`${student.studentprofile[0].firstName} ${student.studentprofile[0].lastName}`}</p>
+            <p className="id">{student.classroomID}</p> {/* */}
           </div>
           <div className="hr-div">
             <hr className="user-list-hr" />
@@ -112,4 +114,4 @@ const StudeGradeList = ({ page, addShow, showStatus, selectId,handleSelect }) =>
   );
 };
 
-export default StudeGradeList;
+export default StudeGradeList2;

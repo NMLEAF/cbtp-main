@@ -17,6 +17,7 @@ const registerParentSchema = z.object({
   password: z.string().min(6),
   firstName: z.string(),
   lastName: z.string(),
+  middleName: z.string().optional(),
   gender: z.string(),
   address: z.string(),
   phone: z.string().min(10),
@@ -26,7 +27,7 @@ const registerParentSchema = z.object({
 });
 
 const AddParent = ({ open, handleClose }) => {
-  const {setToastData} = useToast();
+  const { setToastData } = useToast();
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -41,19 +42,35 @@ const AddParent = ({ open, handleClose }) => {
     roleId: 1, // Assuming a default role ID for parent
     relationship: "",
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (field) => (e) => {
     setFormData({ ...formData, [field]: e.target.value });
+    // Clear the error message when the user starts typing again
+    setErrors({ ...errors, [field]: "" });
+  };
+
+  const validateForm = () => {
+    const validationResult = registerParentSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const validationErrors = {};
+      validationResult.error.errors.forEach((error) => {
+        validationErrors[error.path[0]] = error.message;
+      });
+      setErrors(validationErrors);
+      return false;
+    }
+    return true;
   };
 
   const handleRegister = async () => {
+    if (!validateForm()) return;
+
     const response = await employeeService.addParent(formData);
     setToastData(response);
-    if(response.success){
-      // fetchRegistrar();
+    if (response.success) {
       handleClose();
     }
-   
   };
 
   return (
@@ -71,6 +88,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.email}
           onChange={handleChange("email")}
           fullWidth
+          error={!!errors.email}
+          helperText={errors.email}
         />
         <TextField
           margin="dense"
@@ -79,6 +98,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.password}
           onChange={handleChange("password")}
           fullWidth
+          error={!!errors.password}
+          helperText={errors.password}
         />
         <TextField
           margin="dense"
@@ -86,13 +107,17 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.firstName}
           onChange={handleChange("firstName")}
           fullWidth
+          error={!!errors.firstName}
+          helperText={errors.firstName}
         />
-            <TextField
+        <TextField
           margin="dense"
           label="Middle Name"
           value={formData.middleName}
           onChange={handleChange("middleName")}
           fullWidth
+          error={!!errors.middleName}
+          helperText={errors.middleName}
         />
         <TextField
           margin="dense"
@@ -100,6 +125,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.lastName}
           onChange={handleChange("lastName")}
           fullWidth
+          error={!!errors.lastName}
+          helperText={errors.lastName}
         />
         <TextField
           margin="dense"
@@ -107,6 +134,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.gender}
           onChange={handleChange("gender")}
           fullWidth
+          error={!!errors.gender}
+          helperText={errors.gender}
         />
         <TextField
           margin="dense"
@@ -114,6 +143,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.address}
           onChange={handleChange("address")}
           fullWidth
+          error={!!errors.address}
+          helperText={errors.address}
         />
         <TextField
           margin="dense"
@@ -121,6 +152,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.phone}
           onChange={handleChange("phone")}
           fullWidth
+          error={!!errors.phone}
+          helperText={errors.phone}
         />
         <TextField
           margin="dense"
@@ -129,6 +162,8 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.dateOfBirth}
           onChange={handleChange("dateOfBirth")}
           fullWidth
+          error={!!errors.dateOfBirth}
+          helperText={errors.dateOfBirth}
         />
         <TextField
           margin="dense"
@@ -136,11 +171,18 @@ const AddParent = ({ open, handleClose }) => {
           value={formData.relationship}
           onChange={handleChange("relationship")}
           fullWidth
+          error={!!errors.relationship}
+          helperText={errors.relationship}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleRegister} variant="contained" color="primary">
+        <Button
+          onClick={handleRegister}
+          variant="contained"
+          color="primary"
+          disabled={!formData.email || !formData.password || !formData.firstName || !formData.lastName || !formData.gender || !formData.address || !formData.phone || !formData.dateOfBirth || !formData.relationship || !!errors.email || !!errors.password || !!errors.firstName || !!errors.lastName || !!errors.gender || !!errors.address || !!errors.phone || !!errors.dateOfBirth || !!errors.relationship}
+        >
           Register
         </Button>
       </DialogActions>

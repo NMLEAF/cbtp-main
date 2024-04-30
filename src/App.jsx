@@ -24,17 +24,18 @@ import ParentGrade from "./pages/Parents/Grade/ParentGrade";
 import ParentAttendance from "./pages/Parents/Attendance/ParentAttendance";
 import ParentStudent from "./pages/Parents/Student/ParentStudent";
 import HomePage from "./pages/Home/HomePage";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { isLogged, isTeacher, isAdmin, isStudent, isParent,userData } = useAuth();
+  console.log(userData);
 
   return (
     <>
       <div>
         <ToastNotification />
         <Routes>
-
-        <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<HomePage />} />
 
           <Route path="/login" element={<LoginPage />} />
 
@@ -67,12 +68,14 @@ function App() {
           <Route path="/teacher/attendance" element={<TeacherAttendance />} />
           <Route path="/teacher/grade" element={<Grades />} />
 
-            {/* Parent */}
+          {/* Parent */}
 
           <Route path="/parent/student" element={<ParentStudent />} />
           <Route path="/parent/student/grade" element={<ParentGrade />} />
-          <Route path="/parent/student/attendance" element={<ParentAttendance />} />
-
+          <Route
+            path="/parent/student/attendance"
+            element={<ParentAttendance />}
+          />
         </Routes>
       </div>
     </>

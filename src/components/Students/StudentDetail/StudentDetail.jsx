@@ -2,16 +2,16 @@ import React from "react";
 import "./StudentDetail.css";
 import students from "../../../dummy";
 
-const StudentDetail = ({ removeShow, page, selectedId }) => {
+const StudentDetail = ({ removeShow, page, selectedId,selectedRegistrar }) => {
   const student = students.slice().find((student) => student.Id === selectedId);
-
+  console.log(selectedRegistrar)
   return (
     <div className="container user-detail-container">
       <div className="user-detail-header">
         <div className="user-image"></div>
         <div className="user-profile">
           <h1 className="user-name">
-            {student.fname} {student.lname}
+            { selectedRegistrar.studentprofile[0].firstName} { selectedRegistrar.studentprofile[0].middleName}{ selectedRegistrar.studentprofile[0].lastName}
           </h1>
           <p className="user-class">Class VI</p>
         </div>
@@ -19,7 +19,7 @@ const StudentDetail = ({ removeShow, page, selectedId }) => {
           &times;
         </div>
       </div>
-      <div className="user-basic-details">
+      {/* <div className="user-basic-details">
         <h2 className="basic-detail-title">Basic Details</h2>
         <div className="details">
           <div className="details-list">
@@ -53,7 +53,7 @@ const StudentDetail = ({ removeShow, page, selectedId }) => {
             <p className="list-phone">+1234 123</p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

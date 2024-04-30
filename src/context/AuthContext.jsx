@@ -25,6 +25,8 @@ export const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [isTeacher, setisTeacher] = useState(false);
   const [isParent, setisParent] = useState(false);
+  const [isStudent, setisStudent] = useState(false);
+  const [isRegistrar, setisRegistrar] = useState(false);
   const [userData, setuserData] = useState(null);
 
   useEffect(() => {
@@ -42,16 +44,24 @@ export const AuthProvider = ({ children }) => {
     const loggedInEmployee = getAuth();
     // console.log(loggedInEmployee);
     loggedInEmployee.then((response) => {
-      if (response.employee_token) {
+      // console.log(response);
+      if (response.token) {
         setIsLogged(true);
-        // 3 is the employee_role for admin
-        if (response.employee_role === "admin") {
+    
+        if (response.role === "ADMIN") {
           setIsAdmin(true);
-        } else if (response.employee_role === "manager") {
-          //console.log(response.employee_role);
-          setisTeacher(true);
+        } else if (response.role === "REGISTRAR") {
+         setisRegistrar(true);
         }
-        setEmployee(response);
+        else if (response.role === "STUDENT") {
+          setisStudent(true);
+        }
+        else if (response.role === "TEACHER") {
+          setisTeacher(true);
+        }  else if (response.role === "PARENT") {
+          setisParent(true);
+        }
+        setuserData(response);
       }
     });
   };
@@ -102,15 +112,17 @@ export const AuthProvider = ({ children }) => {
     listOfTeachers,
     listStudent,
     listParents,
-    isTeacher,
+  
     subjectList,
     classesList,
     isLogged,
-    isAdmin,
+     isTeacher, isAdmin,isStudent,isParent,
     setIsAdmin,
     setIsLogged,
     fetchData,
-    isTeacher,
+    setuserData,
+    userData,
+    isRegistrar,
     setisTeacher,
   };
 

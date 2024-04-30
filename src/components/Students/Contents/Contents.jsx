@@ -13,8 +13,10 @@ import {
   TextField,
 } from "@mui/material";
 import StudeGradeList from "../../Grade/StudGradeList/StudGradeList";
+import StudeGradeList2 from "../../Grade/StudGradeList/StudGradeList2";
 const Contents = () => {
   const [showDetail, setShowDetail] = useState(false);
+  const [selectedRegistrar, setSelectedRegistrar] = useState({});
   const [selectedId, setSelectedId] = useState(null);
   const [open, setOpen] = useState(false);
 
@@ -37,6 +39,10 @@ const Contents = () => {
   const handleSelectedId = (id) => {
     setSelectedId(id);
   };
+  const handleSelectedData = (data) => {
+    setSelectedRegistrar(data);
+     
+   };
 
   return (
     <div className="contents">
@@ -44,6 +50,7 @@ const Contents = () => {
         page={"Students"}
         child={
           <>
+          
             <Button onClick={handleOpen} variant="contained" color="primary">
               Add new
             </Button>
@@ -52,10 +59,11 @@ const Contents = () => {
       />
       <div className="admin-dashboard">
         <AddStudent open={open} handleClose={handleClose} />
-        <StudeGradeList
+        <StudeGradeList2
           showStatus={showDetail}
           addShow={addShowDetail}
           selectId={handleSelectedId}
+          handleSelect={handleSelectedData}
           page={"Students"}
         />
         {showDetail && (
@@ -63,6 +71,7 @@ const Contents = () => {
             removeShow={removeShowDetail}
             page={"Student"}
             selectedId={selectedId}
+            selectedRegistrar={selectedRegistrar}
           />
         )}
       </div>

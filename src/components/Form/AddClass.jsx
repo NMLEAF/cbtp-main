@@ -18,22 +18,39 @@ const addClassSchema = z.object({
 });
 
 const AddClass = ({ open, handleClose }) => {
-  const {setToastData} = useToast();
+  const { setToastData } = useToast();
   const [formData, setFormData] = useState({
     className: "",
     Grade: 1, // Default grade
   });
+  const [errors, setErrors] = useState({});
 
   const handleChange = (field) => (e) => {
     setFormData({ ...formData, [field]: e.target.value });
+    // Clear the error message when the user starts typing again
+    setErrors({ ...errors, [field]: "" });
+  };
+
+  const validateForm = () => {
+    const validationResult = addClassSchema.safeParse(formData);
+    if (!validationResult.success) {
+      const validationErrors = {};
+      validationResult.error.errors.forEach((error) => {
+        validationErrors[error.path[0]] = error.message;
+      });
+      setErrors(validationErrors);
+      return false;
+    }
+    return true;
   };
 
   const handleRegister = async () => {
+    if (!validateForm()) return;
+
     const response = await courseService.addClass(formData);
     console.log(response);
     setToastData(response);
-    if(response.success){
-      console.log(")------------")
+    if (response.success) {
       handleClose();
     }
   };
@@ -52,6 +69,8 @@ const AddClass = ({ open, handleClose }) => {
           value={formData.className}
           onChange={handleChange("className")}
           fullWidth
+          error={!!errors.className}
+          helperText={errors.className}
         />
         <TextField
           margin="dense"
@@ -60,11 +79,18 @@ const AddClass = ({ open, handleClose }) => {
           value={formData.Grade}
           onChange={handleChange("Grade")}
           fullWidth
+          error={!!errors.Grade}
+          helperText={errors.Grade}
         />
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleRegister} variant="contained" color="primary">
+        <Button
+          onClick={handleRegister}
+          variant="contained"
+          color="primary"
+          disabled={!formData.className || !formData.Grade || !!errors.className || !!errors.Grade}
+        >
           Register
         </Button>
       </DialogActions>

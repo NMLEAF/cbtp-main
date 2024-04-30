@@ -1,12 +1,22 @@
 // Function to read the data from the user's local storage
 const getAuth = async () => {
-  const userData = await JSON.parse(localStorage.getItem("user"));
+  const userInfo = await JSON.parse(localStorage.getItem("token"));
+  // console.log(userInfo);
+  // console.log(userInfo);
+  let userData = {
+    id: "",
+    firstName: "",
+    role: "",
+    token: userInfo == null ? null : userInfo.token,
+  };
+  if (userInfo && userInfo.token) {
+    const decodedToken = await decodeTokenPayload(userInfo.token);
+    console.log(decodedToken)
 
-  if (userData && userData.userData_token) {
-    const decodedToken = await decodeTokenPayload(userData.userData_token);
-    userData.userRole = decodedToken.userRole;
-    userData.userId = decodedToken.userId;
+    userData.id = decodedToken.userId;
     userData.firstName = decodedToken.firstName;
+    userData.role = decodedToken.userRole;
+    // console.log(userData);
     return userData;
   } else {
     return {};

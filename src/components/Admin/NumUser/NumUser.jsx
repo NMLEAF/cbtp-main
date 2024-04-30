@@ -1,37 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./NumUser.css";
+import axios from "axios";
+import authService from "../../../services/authService";
 
 const NumUser = () => {
+  const [statData,setStateData] = useState({})
+  useEffect(() => {
+    fetchStat();
+  }, []);
+
+  const fetchStat = async () => {
+    const response = await authService.stat();
+    setStateData(response);
+  };
+  console.log(statData.totalSubjectsCount
+  );
   return (
     <div className="num-user">
-      <div className="container num-item">
-        <span>ic</span>
-        <div className="tit-num">
-          <p className="num-title">Registrar</p>
-          <p className="num">29</p>
-        </div>
-      </div>
-      <div className="container num-item">
-        <span>ic</span>
-        <div className="tit-num">
-          <p className="num-title">Students</p>
-          <p className="num">1290</p>
-        </div>
-      </div>
-      <div className="container num-item">
-        <span>ic</span>
-        <div className="tit-num">
-          <p className="num-title">Teachers</p>
-          <p className="num">109</p>
-        </div>
-      </div>
-      <div className="container num-item">
-        <span>ic</span>
-        <div className="tit-num">
-          <p className="num-title">Parents</p>
-          <p className="num">882</p>
-        </div>
-      </div>
+      {statData.userRoleCount && statData.userRoleCount.map((data) => (
+         <div className="container num-item">
+         <span>ic</span>
+         <div className="tit-num">
+           <p className="num-title">{data.role}</p>
+           <p className="num">{data._count.role}</p>
+         </div>
+       </div>
+      ))}
+    
     </div>
   );
 };

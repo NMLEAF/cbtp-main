@@ -1,46 +1,43 @@
 import React, { useState } from "react";
 import "./UserList.css";
-import students from "../../dummy";
 import { useAuth } from "../../context/AuthContext";
 
-const UserList = ({ page, addShow, showStatus, selectId,handleSelect }) => {
-  const {listOfRegistrars} = useAuth();
+const UserList = ({ page, addShow, showStatus, selectId, handleSelect }) => {
+  const { listOfRegistrars } = useAuth();
   const [selectIndex, setSelectedIndex] = useState(null);
   const [gender, setGender] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [sortBy, setSortBy] = useState("Name");
-  const handleClick = (id,data) => {
+
+  const handleClick = (id, data) => {
     addShow();
     setSelectedIndex(id);
     handleSelect(data);
     selectId(id);
   };
 
-  let data;
+  let data = listOfRegistrars;
 
-  if (gender === "All") {
-    data = students;
-  } else {
-    data = students.slice().filter((student) => student.gender === gender);
+  if (gender !== "All") {
+    data = listOfRegistrars.filter((student) => student.gender === gender);
   }
 
-  if (searchQuery !== "") {
-    data = students
-      .slice()
-      .filter(
-        (student) =>
-          student.fname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          student.lname.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          student.Id.toString().includes(searchQuery)
-      );
+  if (searchQuery.trim() !== "") {
+    const query = searchQuery.toLowerCase().trim();
+    data = listOfRegistrars.filter(
+      (student) =>
+        student.fname.toLowerCase().includes(query) ||
+        student.lname.toLowerCase().includes(query) ||
+        student.Id.toString().includes(query)
+    );
   }
 
   if (sortBy === "Name") {
-    data = data.slice().sort((a, b) => a.fname.localeCompare(b.fname));
+    data.sort((a, b) => a.profile[0].firstName.localeCompare(b.profile[0].firstName));
   } else if (sortBy === "ID") {
-    data = data.slice().sort((a, b) => a.Id - b.Id);
+    data.sort((a, b) => a.Id - b.Id);
   }
-  console.log()
+
   return (
     <div className="container container-height">
       <div className="cover">
@@ -79,17 +76,25 @@ const UserList = ({ page, addShow, showStatus, selectId,handleSelect }) => {
         <br />
       </div>
 
-      {listOfRegistrars && listOfRegistrars.map((student, index) => (
+      {data.map((student, index) => (
         <React.Fragment key={student.Id}>
           <div
-            onClick={() => handleClick(student.Id,student)}
+            onClick={() => handleClick(index, student)}
             className={
-              student.Id === selectIndex && showStatus
+              selectIndex === index && showStatus
                 ? "user-header user-list user-list-active"
                 : "user-header user-list"
             }
           >
-            <div className="image"> <img src={student.profile[0].imageUrl} alt="" srcset=""  width={"100%"} height={"100%"} style={{objectFit: "contain", borderRadius: "50%",}}/></div>
+            <div className="image">
+              <img
+                src={student.profile[0].imageUrl}
+                alt=""
+                width="100%"
+                height="100%"
+                style={{ objectFit: "contain", borderRadius: "50%" }}
+              />
+            </div>
             <p className="name">{`${student.profile[0].firstName} ${student.profile[0].lastName}`}</p>
             <p className="id">{student.Id}</p>
           </div>

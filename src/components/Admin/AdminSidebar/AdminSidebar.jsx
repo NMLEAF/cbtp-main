@@ -12,8 +12,11 @@ import PersonAddAltOutlinedIcon from "@mui/icons-material/PersonAddAltOutlined";
 import AddHomeOutlinedIcon from "@mui/icons-material/AddHomeOutlined";
 import NoteAddIcon from "@mui/icons-material/NoteAdd";
 import NoteAddOutlinedIcon from "@mui/icons-material/NoteAddOutlined";
+import { useAuth } from "../../../context/AuthContext";
+import UnauthorizedPage from "../../UnauthorizedPage";
 
 const AdminSidebar = () => {
+  const { isLogged, isTeacher, isAdmin, isStudent, isParent,userData } = useAuth();
   const [sidebar, setSidebar] = useState("dashboard");
   const location = useLocation();
 
@@ -45,10 +48,9 @@ const AdminSidebar = () => {
         <span>Logo</span>
         <h2>SCHOOL</h2>
       </div>
-
       <hr />
-
-      <div className="menu-list">
+      {(isLogged) ? (
+         <div className="menu-list">
         <Link
           to="/admin"
           onClick={() => setSidebar("dashboard")}
@@ -127,6 +129,12 @@ const AdminSidebar = () => {
           </a>
         </div>
       </div>
+      ):(
+        <><UnauthorizedPage /></>
+      )
+    
+    }
+     
     </div>
   );
 };
